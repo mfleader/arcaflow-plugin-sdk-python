@@ -869,7 +869,7 @@ _pattern = pattern
 
 def required_if(required_if: str) -> Validator:
     """
-    This decorator creates a that marks the current field as required if the specified field is set.
+    This decorator creates a validation that marks the current field as required if the specified field is set.
 
     :param required_if: The other field to use.
     :return: the validator
@@ -5009,7 +5009,7 @@ class ObjectType(ObjectSchema, AbstractType, Generic[ObjectT]):
         if object_property.required_if is not None:
             for required_if in object_property.required_if:
                 if (isinstance(data, dict) and required_if in data) or (
-                    hasattr(data, required_if) and getattr(data, required_if) is None
+                    hasattr(data, required_if) and getattr(data, required_if) is not None
                 ):
                     raise ConstraintException(
                         path,

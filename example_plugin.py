@@ -63,35 +63,54 @@ class InputParams:
     """
 
     name: typing.Annotated[
-        typing.Union[
-            typing.Annotated[
-                FullName,
-                annotations.discriminator_value("fullname"),
-                schema.name("Full name"),
-            ],
-            typing.Annotated[
-                Nickname,
-                annotations.discriminator_value("nickname"),
-                schema.name("Nick"),
-            ],
-        ],
-        schema.name("Name"),
-        schema.description("Who do we say hello to?"),
-        annotations.discriminator("_type"),
-        schema.example(
-            {
-                "_type": "fullname",
-                "first_name": "Arca",
-                "last_name": "Lot",
-            }
-        ),
-        schema.example(
-            {
-                "_type": "nickname",
-                "nick": "Arcalot",
-            }
-        ),
+        str,
+        schema.name("name"),
+        schema.id("name")
     ]
+    # name: typing.Annotated[
+    #     typing.Union[
+    #         typing.Annotated[
+    #             FullName,
+    #             annotations.discriminator_value("fullname"),
+    #             schema.name("Full name"),
+    #         ],
+    #         typing.Annotated[
+    #             Nickname,
+    #             annotations.discriminator_value("nickname"),
+    #             schema.name("Nick"),
+    #         ],
+    #     ],
+    #     schema.name("Name"),
+    #     schema.description("Who do we say hello to?"),
+    #     annotations.discriminator("_type"),
+    #     schema.example(
+    #         {
+    #             "_type": "fullname",
+    #             "first_name": "Arca",
+    #             "last_name": "Lot",
+    #         }
+    #     ),
+    #     schema.example(
+    #         {
+    #             "_type": "nickname",
+    #             "nick": "Arcalot",
+    #         }
+    #     ),
+    # ]
+
+    udp: typing.Annotated[
+        typing.Optional[bool],
+        schema.name("use udp"),
+        schema.id("udp"),
+        schema.required_if("udp_counters"),
+        schema.description("use the udp protocol for traffic")
+    ] = None
+    udp_counters: typing.Annotated[
+        typing.Optional[bool],
+        schema.id("udp-counters"),
+        schema.name("UDP 64-bit counters"),
+        schema.description("use 64-bit counters in UDP test packets"),
+    ] = None
 
 
 @dataclass

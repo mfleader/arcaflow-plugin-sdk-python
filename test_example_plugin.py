@@ -9,7 +9,8 @@ class ExamplePluginTest(unittest.TestCase):
     @staticmethod
     def test_serialization():
         plugin.test_object_serialization(
-            example_plugin.InputParams(name=example_plugin.FullName("Arca", "Lot"))
+            # example_plugin.InputParams(name=example_plugin.FullName("Arca", "Lot"))
+            example_plugin.InputParams(name="Arca Lot")
         )
 
         plugin.test_object_serialization(
@@ -21,7 +22,8 @@ class ExamplePluginTest(unittest.TestCase):
         )
 
     def test_functional(self):
-        input = example_plugin.InputParams(name=example_plugin.FullName("Arca", "Lot"))
+        # input = example_plugin.InputParams(name=example_plugin.FullName("Arca", "Lot"))
+        input = example_plugin.InputParams(name="Arca Lot")
 
         output_id, output_data = example_plugin.hello_world(input)
 
