@@ -5008,7 +5008,7 @@ class ObjectType(ObjectSchema, AbstractType, Generic[ObjectT]):
             raise ConstraintException(path, "This field is required")
         if object_property.required_if is not None:
             for required_if in object_property.required_if:
-                if (isinstance(data, dict) and required_if in data) or (
+                if (isinstance(data, dict) and required_if in data) and (
                     hasattr(data, required_if) and getattr(data, required_if) is not None
                 ):
                     raise ConstraintException(

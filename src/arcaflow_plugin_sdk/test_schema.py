@@ -749,9 +749,19 @@ class SerializationTest(unittest.TestCase):
 
         s = schema.build_object_schema(TestData1)
 
+        # similar cases
+        # should not throw ConstraintException
         unserialized = s.unserialize({})
         self.assertIsNone(unserialized.A)
         self.assertIsNone(unserialized.B)
+
+        unserialized = s.unserialize({"A": None, "B": None})
+        self.assertIsNone(unserialized.A)
+        self.assertIsNone(unserialized.B)
+
+        # unserialized = s.unserialize({"A": "", "B": ""})
+        # self.assertIsNone(unserialized.A)
+        # self.assertIsNone(unserialized.B)
 
         unserialized = s.unserialize({"A": "Foo"})
         self.assertEqual(unserialized.A, "Foo")
@@ -759,6 +769,8 @@ class SerializationTest(unittest.TestCase):
 
         with self.assertRaises(schema.ConstraintException):
             s.unserialize({"B": "Foo"})
+
+
 
     def test_int_optional(self):
         @dataclasses.dataclass
